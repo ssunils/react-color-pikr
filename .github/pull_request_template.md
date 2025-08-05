@@ -1,7 +1,9 @@
 ## Description
+
 Brief description of the changes made in this PR.
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
@@ -10,11 +12,13 @@ Brief description of the changes made in this PR.
 - [ ] Code refactoring
 
 ## Changes Made
+
 - [ ] List the specific changes made
 - [ ] Use checkboxes for each change
 - [ ] Be specific and clear
 
 ## Testing
+
 - [ ] Tests pass locally
 - [ ] Added tests for new functionality
 - [ ] Tested in multiple browsers
@@ -22,12 +26,15 @@ Brief description of the changes made in this PR.
 - [ ] Manual testing completed
 
 ## Screenshots (if applicable)
+
 Add screenshots or GIFs to demonstrate the changes.
 
 ## Breaking Changes
+
 List any breaking changes and migration steps if applicable.
 
 ## Checklist
+
 - [ ] My code follows the project's style guidelines
 - [ ] I have performed a self-review of my code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -38,7 +45,9 @@ List any breaking changes and migration steps if applicable.
 - [ ] Any dependent changes have been merged and published
 
 ## Related Issues
+
 Closes #[issue_number]
 
 ## Additional Notes
+
 Any additional information that reviewers should know.

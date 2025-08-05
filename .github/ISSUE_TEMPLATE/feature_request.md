@@ -1,10 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: '[FEATURE] '
+title: "[FEATURE] "
 labels: enhancement
-assignees: ''
-
+assignees: ""
 ---
 
 **Is your feature request related to a problem? Please describe.**
@@ -30,8 +29,5 @@ If this involves API changes, please provide a proposed API:
 
 ```tsx
 // Example of how the new feature might be used
-<ColorPicker
-  newProp="example"
-  onNewEvent={(data) => console.log(data)}
-/>
+<ColorPicker newProp='example' onNewEvent={(data) => console.log(data)} />
 ```
