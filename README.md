@@ -164,6 +164,248 @@ function CustomPresetsExample() {
 }
 ```
 
+## 🎨 Customization
+
+Since version 1.1.0-beta.2, React Color Pikr uses inline styles, making it easy to customize the appearance without CSS conflicts.
+
+> 📖 **For advanced customization examples, see the [Complete Customization Guide](./docs/CUSTOMIZATION.md)**
+
+### Custom Styling with className
+
+You can add custom styles by providing a `className` and using CSS:
+
+```tsx
+import { ColorPicker } from "react-color-pikr";
+import "./custom-color-picker.css";
+
+function CustomStyledPicker() {
+  return (
+    <ColorPicker
+      value="#3498db"
+      onChange={setColor}
+      className="my-custom-picker"
+      width={320}
+      height={240}
+    />
+  );
+}
+```
+
+```css
+/* custom-color-picker.css */
+.my-custom-picker {
+  border: 2px solid #e74c3c;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.my-custom-picker input {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+}
+```
+
+### Wrapper Component for Advanced Customization
+
+Create a wrapper component to override specific styles:
+
+```tsx
+import React from 'react';
+import { ColorPicker, type ColorPickerProps } from 'react-color-pikr';
+
+interface CustomColorPickerProps extends ColorPickerProps {
+  theme?: 'light' | 'dark';
+}
+
+const CustomColorPicker: React.FC<CustomColorPickerProps> = ({ 
+  theme = 'light', 
+  ...props 
+}) => {
+  const wrapperStyle = {
+    padding: '20px',
+    borderRadius: '12px',
+    backgroundColor: theme === 'dark' ? '#2c3e50' : '#ffffff',
+    border: `2px solid ${theme === 'dark' ? '#34495e' : '#e0e0e0'}`,
+  };
+
+  return (
+    <div style={wrapperStyle}>
+      <ColorPicker
+        {...props}
+        width={props.width || 300}
+        height={props.height || 220}
+      />
+    </div>
+  );
+};
+```
+
+### Themed Color Picker
+
+Create different themes for your color picker:
+
+```tsx
+const themes = {
+  minimal: {
+    container: {
+      border: '1px solid #e0e0e0',
+      borderRadius: '8px',
+      padding: '12px',
+      backgroundColor: '#fafafa',
+    }
+  },
+  modern: {
+    container: {
+      border: 'none',
+      borderRadius: '16px',
+      padding: '24px',
+      backgroundColor: '#ffffff',
+      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+    }
+  },
+  dark: {
+    container: {
+      border: '1px solid #444',
+      borderRadius: '12px',
+      padding: '20px',
+      backgroundColor: '#2c3e50',
+      color: '#ecf0f1',
+    }
+  }
+};
+
+function ThemedColorPicker({ theme = 'modern' }) {
+  return (
+    <div style={themes[theme].container}>
+      <ColorPicker
+        value={color}
+        onChange={setColor}
+        showAlpha={true}
+      />
+    </div>
+  );
+}
+```
+
+### Responsive Color Picker
+
+Make the color picker responsive for different screen sizes:
+
+```tsx
+import { useState, useEffect } from 'react';
+
+function ResponsiveColorPicker() {
+  const [dimensions, setDimensions] = useState({ width: 280, height: 200 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setDimensions({ width: 260, height: 180 });
+      } else if (width < 768) {
+        setDimensions({ width: 300, height: 220 });
+      } else {
+        setDimensions({ width: 320, height: 240 });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  return (
+    <ColorPicker
+      value={color}
+      onChange={setColor}
+      width={dimensions.width}
+      height={dimensions.height}
+      showAlpha={true}
+    />
+  );
+}
+```
+
+### Custom Preset Colors with Categories
+
+Organize preset colors into categories:
+
+```tsx
+const colorCategories = {
+  primary: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'],
+  neutral: ['#95a5a6', '#7f8c8d', '#34495e', '#2c3e50', '#ecf0f1'],
+  pastel: ['#ffeaa7', '#fab1a0', '#fd79a8', '#a29bfe', '#6c5ce7'],
+};
+
+function CategorizedColorPicker() {
+  const [selectedCategory, setSelectedCategory] = useState('primary');
+  
+  return (
+    <div>
+      {/* Category Selector */}
+      <div style={{ marginBottom: '16px' }}>
+        {Object.keys(colorCategories).map(category => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            style={{
+              margin: '0 4px',
+              padding: '6px 12px',
+              borderRadius: '4px',
+              border: selectedCategory === category ? '2px solid #3498db' : '1px solid #ddd',
+              background: selectedCategory === category ? '#e3f2fd' : '#fff',
+            }}
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </button>
+        ))}
+      </div>
+      
+      <ColorPicker
+        value={color}
+        onChange={setColor}
+        presetColors={colorCategories[selectedCategory]}
+        showPresets={true}
+      />
+    </div>
+  );
+}
+```
+
+### Integration with CSS-in-JS Libraries
+
+Use with styled-components or emotion:
+
+```tsx
+import styled from 'styled-components';
+import { ColorPicker } from 'react-color-pikr';
+
+const StyledColorPickerWrapper = styled.div`
+  .color-picker {
+    border: 2px solid ${props => props.theme.primary};
+    border-radius: 16px;
+    
+    input {
+      font-family: 'JetBrains Mono', monospace;
+      background: ${props => props.theme.inputBg};
+      color: ${props => props.theme.text};
+    }
+  }
+`;
+
+function StyledColorPicker() {
+  return (
+    <StyledColorPickerWrapper>
+      <ColorPicker
+        value={color}
+        onChange={setColor}
+        className="color-picker"
+      />
+    </StyledColorPickerWrapper>
+  );
+}
+```
+
 ## Development
 
 ```bash
