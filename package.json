@@ -1,7 +1,7 @@
 {
   "name": "react-color-pikr",
   "private": false,
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "type": "module",
   "description": "A modern, customizable React color picker component library with 8-digit HEX alpha support",
   "main": "./dist/react-color-pikr.umd.js",
