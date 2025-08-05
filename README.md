@@ -181,6 +181,50 @@ npm run build:lib
 npm run lint
 ```
 
+## 🚀 Automated Publishing
+
+This repository uses GitHub Actions for automated publishing:
+
+### 🔄 Continuous Integration
+- **CI Pipeline**: Runs on every push and pull request
+- **Multi-Node Testing**: Tests against Node.js 18, 20, and 22
+- **Quality Checks**: Linting, type checking, and building
+- **Bundle Analysis**: Automatic bundle size reporting
+
+### 📦 Release Process
+
+#### Option 1: Manual Release (Recommended)
+1. Go to **Actions** tab in GitHub
+2. Select **Release** workflow
+3. Click **Run workflow**
+4. Choose version type:
+   - `patch`: Bug fixes (1.0.0 → 1.0.1)
+   - `minor`: New features (1.0.0 → 1.1.0)
+   - `major`: Breaking changes (1.0.0 → 2.0.0)
+   - `prerelease`: Beta versions (1.0.0 → 1.1.0-beta.1)
+
+#### Option 2: Tag-based Release
+```bash
+# Create and push a tag
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+### 🏷️ Publishing Tags
+- **Latest**: Stable releases (`npm install react-color-pikr`)
+- **Beta**: Prerelease versions (`npm install react-color-pikr@beta`)
+
+### 🔧 Setup Instructions for Contributors
+
+To set up automated publishing, add these secrets to your GitHub repository:
+
+1. **NPM_TOKEN**: Your npm authentication token
+   - Go to npmjs.com → Account → Access Tokens
+   - Create a new **Automation** token
+   - Add to GitHub: Settings → Secrets → Actions → `NPM_TOKEN`
+
+2. **GITHUB_TOKEN**: Automatically provided by GitHub Actions
+
 ## License
 
 MIT © [Sunil Soundarapandian](https://github.com/ssunils)

@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run linting
+        run: npm run lint
+        
+      - name: Run type checking
+        run: npm run typecheck
+        
+      - name: Run tests
+        run: npm test
+        
+      - name: Build library
+        run: npm run build:lib
+        
+      - name: Check bundle size
+        run: |
+          echo "📦 Bundle sizes:"
+          ls -lh dist/
+          echo "🗜️ Gzipped sizes:"
+          gzip -c dist/react-color-pikr.js | wc -c | awk '{print "JS: " $1/1024 " KB"}'
+          gzip -c dist/react-color-pikr.css | wc -c | awk '{print "CSS: " $1/1024 " KB"}'

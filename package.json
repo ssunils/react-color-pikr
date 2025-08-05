@@ -52,7 +52,11 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build:lib",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "release:patch": "npm version patch && git push origin main --tags",
+    "release:minor": "npm version minor && git push origin main --tags",
+    "release:major": "npm version major && git push origin main --tags",
+    "release:beta": "npm version prerelease --preid=beta && git push origin main --tags"
   },
   "dependencies": {
     "react": "^19.1.0",
