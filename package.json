@@ -37,11 +37,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunils/react-color-pikr.git"
+    "url": "https://github.com/ssunils/react-color-pikr.git"
   },
-  "homepage": "https://github.com/sunils/react-color-pikr#readme",
+  "homepage": "https://github.com/ssunils/react-color-pikr#readme",
   "bugs": {
-    "url": "https://github.com/sunils/react-color-pikr/issues"
+    "url": "https://github.com/ssunils/react-color-pikr/issues"
   },
   "scripts": {
     "dev": "vite",
