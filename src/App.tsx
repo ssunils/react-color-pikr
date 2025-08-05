@@ -6,6 +6,7 @@ import "./App.css";
 function App() {
   const [color, setColor] = useState("#3498db80"); // 8-digit HEX with 50% alpha
   const [showAlpha, setShowAlpha] = useState(true); // Start with alpha enabled to showcase
+  const [showColorFormat, setShowColorFormat] = useState(true); // New state for format toggle
   const [format, setFormat] = useState<"hex" | "rgb" | "hsv" | "hsl">("hex");
 
   const handleColorChange = (newColor: ColorValue) => {
@@ -30,6 +31,15 @@ function App() {
                 onChange={(e) => setShowAlpha(e.target.checked)}
               />
               Show Alpha Channel
+            </label>
+
+            <label>
+              <input
+                type='checkbox'
+                checked={showColorFormat}
+                onChange={(e) => setShowColorFormat(e.target.checked)}
+              />
+              Show Format Selector
             </label>
 
             <label>
@@ -66,7 +76,7 @@ function App() {
                 format={format}
                 onFormatChange={setFormat}
                 showAlpha={showAlpha}
-                showColorFormat={true}
+                showColorFormat={showColorFormat}
                 showPresets={true}
               />
             </div>
@@ -93,6 +103,7 @@ function App() {
               🔄 Alpha channel support with 8-digit HEX format (#RRGGBBAA)
             </li>
             <li>🎯 Preset color swatches with customization</li>
+            <li>🎛️ Configurable UI elements (format selector, alpha, presets)</li>
             <li>📱 Touch-friendly for mobile devices</li>
             <li>♿ Accessible with keyboard navigation</li>
             <li>🎭 TypeScript support with comprehensive types</li>
