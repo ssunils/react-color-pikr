@@ -1,0 +1,22 @@
+# Development files
+src/
+public/
+.vscode/
+.github/
+node_modules/
+
+# Configuration files
+vite.config.ts
+tsconfig*.json
+eslint.config.js
+.gitignore
+.npmignore
+
+# Development dependencies
+package-lock.json
+
+# Documentation (included in package but not needed)
+index.html
+
+# Build artifacts (keep only dist/)
+# dist/ is included for the library files

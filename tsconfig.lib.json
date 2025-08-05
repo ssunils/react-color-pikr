@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "emitDeclarationOnly": true,
+    "verbatimModuleSyntax": false
+  },
+  "include": [
+    "src/index.ts",
+    "src/types.ts",
+    "src/types/*.ts",
+    "src/components/*.tsx",
+    "src/utils/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.*",
+    "src/**/*.spec.*",
+    "src/App.tsx",
+    "src/main.tsx"
+  ]
+}
