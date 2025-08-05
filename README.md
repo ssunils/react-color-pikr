@@ -14,6 +14,7 @@ A modern, customizable React color picker component library with 8-digit HEX alp
 - **Accessible**: Full keyboard navigation support
 - **Touch Friendly**: Optimized for mobile devices with smooth dragging
 - **Customizable**: Flexible styling and configuration options
+- **Zero CSS Imports**: Self-contained with inline styles - no CSS files to import
 - **Lightweight**: Minimal dependencies and small bundle size
 - **TypeScript**: Full TypeScript support with type definitions
 
@@ -35,7 +36,6 @@ pnpm add react-color-pikr
 
 ```tsx
 import { ColorPicker } from "react-color-pikr";
-import "react-color-pikr/dist/style.css";
 
 function App() {
   const [color, setColor] = useState("#3498db80"); // 8-digit HEX with alpha
@@ -51,6 +51,8 @@ function App() {
   );
 }
 ```
+
+> **Note**: No CSS imports required! All styles are included automatically.
 
 ## 📖 API Reference
 

@@ -10,7 +10,7 @@ import {
   rgbToCssString,
 } from "../utils/colorUtils";
 import ColorSwatch from "./ColorSwatch";
-import "./ColorPicker.css";
+import { colorPickerStyles, combineStyles } from "./ColorPicker.styles";
 
 const DEFAULT_PRESETS = [
   "#FF0000",
@@ -311,44 +311,44 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
 
   return (
     <div
-      className={`color-picker ${className} ${disabled ? "disabled" : ""}`}
-      style={{ width, minHeight: height }}
+      style={combineStyles(
+        colorPickerStyles.colorPicker,
+        disabled ? colorPickerStyles.colorPickerDisabled : undefined,
+        { width, minHeight: height }
+      )}
+      className={className}
     >
       {/* Color Preview */}
-      <div className='color-preview'>
+      <div style={colorPickerStyles.colorPreview}>
         <div
-          className='color-preview-current'
-          style={{
+          style={combineStyles(colorPickerStyles.colorPreviewCurrent, {
             backgroundColor: showAlpha
               ? rgbToCssString({ ...currentRgb, a: alpha })
               : rgbToCssString(currentRgb),
-          }}
+          })}
         />
       </div>
 
       {/* Saturation/Value Area */}
       <div
         ref={saturationRef}
-        className='saturation-area'
-        style={{
+        style={combineStyles(colorPickerStyles.saturationArea, {
           background: saturationBackground,
           height: height * 0.6,
-        }}
+        })}
         onMouseDown={handleSaturationMouseDown}
         onTouchStart={handleSaturationMouseDown}
       >
         <div
-          className='saturation-overlay'
-          style={{
+          style={combineStyles(colorPickerStyles.saturationOverlay, {
             background: "linear-gradient(to top, #000, transparent)",
-          }}
+          })}
         >
           <div
-            className='saturation-pointer'
-            style={{
+            style={combineStyles(colorPickerStyles.saturationPointer, {
               left: `${currentColor.s}%`,
               top: `${100 - currentColor.v}%`,
-            }}
+            })}
           />
         </div>
       </div>
@@ -356,13 +356,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
       {/* Hue Slider */}
       <div
         ref={hueRef}
-        className='hue-slider'
+        style={colorPickerStyles.hueSlider}
         onMouseDown={handleHueMouseDown}
         onTouchStart={handleHueMouseDown}
       >
         <div
-          className='hue-pointer'
-          style={{ left: `${(currentColor.h / 360) * 100}%` }}
+          style={combineStyles(colorPickerStyles.huePointer, {
+            left: `${(currentColor.h / 360) * 100}%`,
+          })}
         />
       </div>
 
@@ -370,32 +371,37 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
       {showAlpha && (
         <div
           ref={alphaRef}
-          className='alpha-slider'
+          style={colorPickerStyles.alphaSlider}
           onMouseDown={handleAlphaMouseDown}
           onTouchStart={handleAlphaMouseDown}
         >
-          <div className='alpha-background' />
+          <div style={colorPickerStyles.alphaBackground} />
           <div
-            className='alpha-overlay'
-            style={{
+            style={combineStyles(colorPickerStyles.alphaOverlay, {
               background: `linear-gradient(to right, transparent, ${rgbToCssString(
                 currentRgb
               )})`,
-            }}
+            })}
           />
-          <div className='alpha-pointer' style={{ left: `${alpha * 100}%` }} />
+          <div 
+            style={combineStyles(colorPickerStyles.alphaPointer, {
+              left: `${alpha * 100}%`,
+            })}
+          />
         </div>
       )}
 
       {/* Color Format Toggle */}
       {showColorFormat && (
-        <div className='format-toggle'>
+        <div style={colorPickerStyles.formatToggle}>
           {(["hex", "rgb", "hsv", "hsl"] as const).map((fmt) => (
             <button
               key={fmt}
-              className={`format-button ${
-                currentFormat === fmt ? "active" : ""
-              }`}
+              style={combineStyles(
+                colorPickerStyles.formatButton,
+                currentFormat === fmt ? colorPickerStyles.formatButtonActive : undefined,
+                disabled ? colorPickerStyles.formatButtonDisabled : undefined
+              )}
               onClick={() => {
                 setCurrentFormat(fmt);
                 if (onFormatChange) {
@@ -411,25 +417,23 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
       )}
 
       {/* Color Input */}
-      <div className='color-input'>
-        <input
-          type='text'
-          value={getCurrentColorValue()}
-          onChange={(e) => {
-            const rgb = parseColorString(e.target.value);
-            if (rgb) {
-              const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-              handleColorChange(hsv);
-            }
-          }}
-          disabled={disabled}
-          className='color-input-field'
-        />
-      </div>
+      <input
+        type='text'
+        value={getCurrentColorValue()}
+        onChange={(e) => {
+          const rgb = parseColorString(e.target.value);
+          if (rgb) {
+            const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+            handleColorChange(hsv);
+          }
+        }}
+        disabled={disabled}
+        style={colorPickerStyles.colorInput}
+      />
 
       {/* Preset Colors */}
       {showPresets && presetColors && presetColors.length > 0 && (
-        <div className='preset-colors'>
+        <div style={colorPickerStyles.presets}>
           {presetColors.map((color, index) => (
             <ColorSwatch
               key={index}
