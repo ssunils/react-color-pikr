@@ -5,7 +5,7 @@ A modern, customizable React color picker component library with 8-digit HEX alp
 [![npm version](https://badge.fury.io/js/react-color-pikr.svg)](https://badge.fury.io/js/react-color-pikr)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-🎨 **[Live Demo](https://ssunils.github.io/react-color-pikr)** | 📚 **[Documentation](https://github.com/ssunils/react-color-pikr/tree/main/docs)** | 📦 **[npm Package](https://www.npmjs.com/package/react-color-pikr)**
+**[Live Demo](https://ssunils.github.io/react-color-pikr)** | **[Documentation](https://github.com/ssunils/react-color-pikr/tree/main/docs)** | **[npm Package](https://www.npmjs.com/package/react-color-pikr)**
 
 ## Features
 
