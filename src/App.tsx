@@ -25,7 +25,7 @@ function App() {
             rel="noopener noreferrer"
             className="link-button"
           >
-            📚 GitHub
+             GitHub
           </a>
           <a 
             href="https://www.npmjs.com/package/react-color-pikr" 
@@ -33,7 +33,7 @@ function App() {
             rel="noopener noreferrer"
             className="link-button"
           >
-            📦 npm
+             npm
           </a>
         </div>
       </header>

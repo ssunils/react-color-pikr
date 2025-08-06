@@ -69,9 +69,9 @@ else
 fi
 
 echo ""
-echo "✅ Workspace validation completed successfully!"
+echo " Workspace validation completed successfully!"
 echo ""
-echo "🚀 Ready to release! Choose your method:"
+echo " Ready to release! Choose your method:"
 echo "   1. GitHub Actions: Go to Actions → Release → Run workflow"
 echo "   2. npm scripts: npm run release:patch|minor|major|beta"
 echo "   3. Manual: npm version <type> && git push origin main --tags"

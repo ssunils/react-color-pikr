@@ -5,10 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-08-06
+
+### Added
+- 📚 Comprehensive documentation overhaul with structured guides
+- 🌐 GitHub Pages deployment for live demo
+- 📖 Dedicated documentation pages (API, Examples, Getting Started, Migration, Customization)
+- 🤝 Contributing guidelines and development workflows
+- 🚀 Deployment automation scripts
+- 📋 Documentation index with quick navigation
+
+### Improved
+- ✨ Cleaned up README for better readability and focus
+- 🎨 Enhanced demo app with installation instructions and GitHub/npm links
+- 🔧 Better project structure with organized documentation
+- 📊 Added comprehensive migration guide from popular libraries
+
+### Technical
+- 🏗️ GitHub Pages workflow for automatic demo deployment
+- 🛠️ Helper scripts for release validation and deployment
+- 📦 Optimized build process for demo and library separately
+
 ## [1.0.0] - 2025-08-06
 
 ### Added
-
 - Initial release of React Color Pikr
 - ColorPicker component with saturation/value area and hue slider
 - ColorSwatch component for preset colors
