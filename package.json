@@ -38,13 +38,14 @@
     "type": "git",
     "url": "https://github.com/ssunils/react-color-pikr.git"
   },
-  "homepage": "https://github.com/ssunils/react-color-pikr#readme",
+  "homepage": "https://ssunils.github.io/react-color-pikr",
   "bugs": {
     "url": "https://github.com/ssunils/react-color-pikr/issues"
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:demo": "tsc -b && vite build",
     "build:lib": "vite build --mode lib && npx tsc src/index.ts --declaration --emitDeclarationOnly --outDir dist --moduleResolution bundler --target ES2022 --jsx react-jsx --strict",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -53,6 +54,7 @@
     "prepublishOnly": "npm run build:lib",
     "test": "echo \"No tests specified\" && exit 0",
     "validate-release": "./scripts/validate-release.sh",
+    "deploy-pages": "./scripts/deploy-pages.sh",
     "release:patch": "npm version patch --no-git-tag-version && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git tag v$(node -p 'require(\"./package.json\").version') && git push origin main --tags",
     "release:minor": "npm version minor --no-git-tag-version && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git tag v$(node -p 'require(\"./package.json\").version') && git push origin main --tags",
     "release:major": "npm version major --no-git-tag-version && git add package.json && git commit -m \"chore: bump version to $(node -p 'require(\"./package.json\").version')\" && git tag v$(node -p 'require(\"./package.json\").version') && git push origin main --tags",

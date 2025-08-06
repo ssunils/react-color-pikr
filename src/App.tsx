@@ -18,6 +18,24 @@ function App() {
       <header className='app-header'>
         <h1>React Color Pikr</h1>
         <p>A modern, customizable React color picker component library</p>
+        <div className='header-links'>
+          <a 
+            href="https://github.com/ssunils/react-color-pikr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="link-button"
+          >
+            📚 GitHub
+          </a>
+          <a 
+            href="https://www.npmjs.com/package/react-color-pikr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="link-button"
+          >
+            📦 npm
+          </a>
+        </div>
       </header>
 
       <main className='app-main'>
@@ -109,6 +127,24 @@ function App() {
             <li>🎭 TypeScript support with comprehensive types</li>
             <li>🎡 Lightweight with no external dependencies</li>
           </ul>
+        </div>
+
+        <div className='installation-section'>
+          <h2>Installation</h2>
+          <div className='install-commands'>
+            <div className='install-option'>
+              <h3>npm</h3>
+              <pre className='code-block'>npm install react-color-pikr</pre>
+            </div>
+            <div className='install-option'>
+              <h3>yarn</h3>
+              <pre className='code-block'>yarn add react-color-pikr</pre>
+            </div>
+            <div className='install-option'>
+              <h3>pnpm</h3>
+              <pre className='code-block'>pnpm add react-color-pikr</pre>
+            </div>
+          </div>
         </div>
 
         <div className='usage-section'>

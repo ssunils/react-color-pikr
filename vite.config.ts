@@ -30,5 +30,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    base: "/react-color-pikr/", // GitHub Pages base path
+    build: {
+      outDir: "dist",
+      assetsDir: "assets",
+    },
   };
 });
