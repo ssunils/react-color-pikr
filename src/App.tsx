@@ -13,6 +13,38 @@ function App() {
   // Set dynamic document title for better SEO
   useEffect(() => {
     document.title = "React Color Pikr - Modern Color Picker Demo";
+    
+    // Add JSON-LD structured data for better SEO
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "React Color Pikr Demo",
+      "description": "Interactive demo of React Color Pikr - a modern color picker component library for React",
+      "url": window.location.href,
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "softwareVersion": "1.1.2",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Modern browser with JavaScript enabled",
+      "featureList": [
+        "8-digit HEX alpha support",
+        "Multiple color formats",
+        "Accessibility features",
+        "Touch-friendly interface",
+        "TypeScript support"
+      ]
+    });
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, []);
 
   const handleColorChange = (newColor: ColorValue) => {

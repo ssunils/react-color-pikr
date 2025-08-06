@@ -1,5 +1,36 @@
 User-agent: *
 Allow: /
+Allow: /docs/
+Allow: /examples/
+
+# Specific bot permissions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# AI and LLM bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
 
 # Sitemap
-Sitemap: https://react-color-pikr.github.io/sitemap.xml
+Sitemap: https://ssunils.github.io/react-color-pikr/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
