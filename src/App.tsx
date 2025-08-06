@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ColorPicker from "./components/ColorPicker";
 import type { ColorValue } from "./types";
 import { Palette, Smartphone, Zap, Eye, Keyboard, FileCode2 } from "lucide-react";
@@ -10,13 +10,18 @@ function App() {
   const [showColorFormat, setShowColorFormat] = useState(true); // New state for format toggle
   const [format, setFormat] = useState<"hex" | "rgb" | "hsv" | "hsl">("hex");
 
+  // Set dynamic document title for better SEO
+  useEffect(() => {
+    document.title = "React Color Pikr - Modern Color Picker Demo";
+  }, []);
+
   const handleColorChange = (newColor: ColorValue) => {
     setColor(typeof newColor === "string" ? newColor : "#000000");
   };
 
   return (
     <div className='app'>
-      <header className='app-header'>
+      <header className='app-header' role="banner">
         <div className='hero-content'>
           <div className='hero-badge'>
             <span>TypeScript</span>
@@ -28,7 +33,7 @@ function App() {
             A modern, customizable React color picker component library with 8-digit HEX alpha support, 
             built with TypeScript for professional applications.
           </p>
-          <div className='hero-stats'>
+          <div className='hero-stats' role="group" aria-label="Library statistics">
             <div className='stat'>
               <span className='stat-number'>&lt; 50KB</span>
               <span className='stat-label'>Bundle Size</span>
@@ -42,7 +47,7 @@ function App() {
               <span className='stat-label'>Accessible</span>
             </div>
           </div>
-          <div className='header-links'>
+          <nav className='header-links' role="navigation" aria-label="Main navigation">
             <a 
               href="https://github.com/ssunils/react-color-pikr" 
               target="_blank" 
@@ -67,30 +72,31 @@ function App() {
             >
               Documentation
             </a>
-          </div>
+          </nav>
         </div>
       </header>
 
-      <main className='app-main'>
-        <div className='demo-section'>
+      <main className='app-main' role="main">
+        <section className='demo-section' aria-labelledby="demo-heading">
           <div className='section-header'>
-            <h2>Interactive Demo</h2>
+            <h2 id="demo-heading">Interactive Demo</h2>
             <p>Try out all the features of React Color Pikr. Adjust settings and see real-time updates.</p>
           </div>
           
           <div className='demo-controls-wrapper'>
-            <h3>Configuration Options</h3>
-            <div className='demo-controls'>
+            <h3 id="config-heading">Configuration Options</h3>
+            <div className='demo-controls' role="group" aria-labelledby="config-heading">
               <div className='control-group'>
                 <label className='control-label'>
                   <input
                     type='checkbox'
                     checked={showAlpha}
                     onChange={(e) => setShowAlpha(e.target.checked)}
+                    aria-describedby="alpha-description"
                   />
                   <span className='control-text'>Alpha Channel Support</span>
                 </label>
-                <small className='control-description'>Enable transparency control with 8-digit HEX format</small>
+                <small id="alpha-description" className='control-description'>Enable transparency control with 8-digit HEX format</small>
               </div>
 
               <div className='control-group'>
@@ -99,10 +105,11 @@ function App() {
                     type='checkbox'
                     checked={showColorFormat}
                     onChange={(e) => setShowColorFormat(e.target.checked)}
+                    aria-describedby="format-selector-description"
                   />
                   <span className='control-text'>Format Selector</span>
                 </label>
-                <small className='control-description'>Show format switching in the color picker</small>
+                <small id="format-selector-description" className='control-description'>Show format switching in the color picker</small>
               </div>
 
               <div className='control-group'>
@@ -114,6 +121,7 @@ function App() {
                     onChange={(e) =>
                       setFormat(e.target.value as "hex" | "rgb" | "hsv" | "hsl")
                     }
+                    aria-describedby="output-format-description"
                   >
                     <option value='hex'>HEX</option>
                     <option value='rgb'>RGB</option>
@@ -122,7 +130,7 @@ function App() {
                   </select>
                 </label>
                 {showAlpha && format === "hex" && (
-                  <small className='control-description format-note'>
+                  <small id="output-format-description" className='control-description format-note'>
                     Using 8-digit format: #RRGGBBAA
                   </small>
                 )}
@@ -131,7 +139,7 @@ function App() {
           </div>
           <div className='demo-container'>
             <div className='color-picker-container'>
-              <h3>Color Picker</h3>
+              <h3 id="picker-heading">Color Picker</h3>
               <ColorPicker
                 value={color}
                 onChange={handleColorChange}
@@ -140,12 +148,13 @@ function App() {
                 showAlpha={showAlpha}
                 showColorFormat={showColorFormat}
                 showPresets={true}
+                aria-labelledby="picker-heading"
               />
             </div>
 
             <div className='result-container'>
-              <h3>Selected Color</h3>
-              <div className='color-output'>
+              <h3 id="result-heading">Selected Color</h3>
+              <div className='color-output' aria-labelledby="result-heading">
                 <div
                   className='color-display'
                   style={{ backgroundColor: color }}
@@ -163,11 +172,11 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='features-section'>
+        <section className='features-section' aria-labelledby="features-heading">
           <div className='section-header'>
-            <h2>Why Choose React Color Pikr?</h2>
+            <h2 id="features-heading">Why Choose React Color Pikr?</h2>
             <p>Designed for modern React applications with developer experience in mind.</p>
           </div>
           
@@ -220,11 +229,11 @@ function App() {
               <p>Comprehensive TypeScript support with full type definitions for better development experience.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='quick-start-section'>
+        <section className='quick-start-section' aria-labelledby="quickstart-heading">
           <div className='section-header'>
-            <h2>Quick Start</h2>
+            <h2 id="quickstart-heading">Quick Start</h2>
             <p>Get started with React Color Pikr in under 2 minutes.</p>
           </div>
           
@@ -253,10 +262,10 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='installation-section'>
-          <h2>Installation</h2>
+        <section className='installation-section' aria-labelledby="installation-heading">
+          <h2 id="installation-heading">Installation</h2>
           <p className='installation-intro'>
             Choose your preferred package manager to add React Color Pikr to your project.
           </p>
@@ -307,11 +316,11 @@ function App() {
               <p>No CSS imports needed! All styles are included automatically with the component.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='usage-section'>
+        <section className='usage-section' aria-labelledby="usage-heading">
           <div className='section-header'>
-            <h2>Basic Usage Example</h2>
+            <h2 id="usage-heading">Basic Usage Example</h2>
             <p>Here's how simple it is to add a color picker to your React application.</p>
           </div>
           
@@ -351,10 +360,10 @@ function App() {
               <strong>TypeScript ready:</strong> Full type definitions included for better development experience.
             </div>
           </div>
-        </div>
+        </section>
       </main>
       
-      <footer className='app-footer'>
+      <footer className='app-footer' role="contentinfo">
         <div className='footer-content'>
           <div className='footer-section'>
             <h3>Resources</h3>
