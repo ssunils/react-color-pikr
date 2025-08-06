@@ -393,7 +393,7 @@ function App() {
         </div>
         <div className='footer-bottom'>
           <p>&copy; 2025 React Color Pikr. Built with TypeScript and React.</p>
-          <p>Created by <a href="https://github.com/ssunils" target="_blank" rel="noopener noreferrer">Sunil Soundarapandian</a></p>
+          <p>Created by <a href="https://sunils.dev" target="_blank" rel="noopener noreferrer">Sunil Soundarapandian</a></p>
         </div>
       </footer>
     </div>
