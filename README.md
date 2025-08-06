@@ -433,6 +433,30 @@ MIT © [Sunil Soundarapandian](https://github.com/ssunils)
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+### Development Setup
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
+4. Build library: `npm run build:lib`
+
+### Release Process
+
+Before releasing, validate your workspace:
+```bash
+npm run validate-release
+```
+
+Create releases using GitHub Actions (recommended) or npm scripts:
+```bash
+npm run release:patch  # Bug fixes
+npm run release:minor  # New features  
+npm run release:major  # Breaking changes
+npm run release:beta   # Prerelease
+```
+
+See [Release Documentation](.github/RELEASE.md) for detailed information.
+
 ## Issues
 
 If you find any issues, please report them on [GitHub Issues](https://github.com/ssunils/react-color-pikr/issues).

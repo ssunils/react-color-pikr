@@ -3,17 +3,15 @@ name: Publish to NPM
 on:
   release:
     types: [published]
-  push:
-    tags:
-      - "v*"
 
 permissions:
-  contents: write
+  contents: read
   id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: startsWith(github.event.release.tag_name, 'v')
 
     steps:
       - name: Checkout code
@@ -34,49 +32,58 @@ jobs:
       - name: Build library
         run: npm run build:lib
 
-      - name: Determine version and tag
+      - name: Extract version from tag
         id: version
         run: |
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
-            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-            if [[ $VERSION == *"beta"* ]] || [[ $VERSION == *"alpha"* ]] || [[ $VERSION == *"rc"* ]]; then
-              echo "NPM_TAG=beta" >> $GITHUB_OUTPUT
-            else
-              echo "NPM_TAG=latest" >> $GITHUB_OUTPUT
-            fi
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          VERSION=${TAG_NAME#v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Determine npm tag based on version
+          if [[ $VERSION == *"beta"* ]] || [[ $VERSION == *"alpha"* ]] || [[ $VERSION == *"rc"* ]]; then
+            echo "NPM_TAG=beta" >> $GITHUB_OUTPUT
           else
             echo "NPM_TAG=latest" >> $GITHUB_OUTPUT
           fi
+          
+          echo "Publishing version: $VERSION with tag: ${{ steps.version.outputs.NPM_TAG }}"
 
-      - name: Update package version
-        if: steps.version.outputs.VERSION
+      - name: Update package.json version
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           TARGET_VERSION="${{ steps.version.outputs.VERSION }}"
+          
+          echo "Current package.json version: $CURRENT_VERSION"
+          echo "Target version from tag: $TARGET_VERSION"
+          
           if [ "$CURRENT_VERSION" != "$TARGET_VERSION" ]; then
+            echo "Updating package.json version to $TARGET_VERSION"
             npm version $TARGET_VERSION --no-git-tag-version
           else
-            echo "Version is already $TARGET_VERSION, skipping update"
+            echo "Version already matches, proceeding with publish"
+          fi
+
+      - name: Check if version already published
+        id: check_published
+        run: |
+          if npm view react-color-pikr@${{ steps.version.outputs.VERSION }} version 2>/dev/null; then
+            echo "ALREADY_PUBLISHED=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Version ${{ steps.version.outputs.VERSION }} is already published to npm"
+          else
+            echo "ALREADY_PUBLISHED=false" >> $GITHUB_OUTPUT
+            echo "✅ Version ${{ steps.version.outputs.VERSION }} is not published yet"
           fi
 
       - name: Publish to NPM
-        run: npm publish --tag ${{ steps.version.outputs.NPM_TAG || 'latest' }}
+        if: steps.check_published.outputs.ALREADY_PUBLISHED == 'false'
+        run: |
+          echo "Publishing react-color-pikr@${{ steps.version.outputs.VERSION }} with tag ${{ steps.version.outputs.NPM_TAG }}"
+          npm publish --tag ${{ steps.version.outputs.NPM_TAG }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create GitHub Release
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      - name: Skip publish (already exists)
+        if: steps.check_published.outputs.ALREADY_PUBLISHED == 'true'
         run: |
-          PRERELEASE=""
-          if [[ "${{ github.ref_name }}" == *"beta"* ]] || [[ "${{ github.ref_name }}" == *"alpha"* ]] || [[ "${{ github.ref_name }}" == *"rc"* ]]; then
-            PRERELEASE="--prerelease"
-          fi
-          
-          gh release create "${{ github.ref_name }}" \
-            --title "Release ${{ github.ref_name }}" \
-            --notes "Changes in this Release
-          - Auto-generated release from tag ${{ github.ref_name }}" \
-            $PRERELEASE
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "⏭️ Skipping npm publish - version ${{ steps.version.outputs.VERSION }} already exists"
+          echo "This is likely because the release was created manually or re-triggered"

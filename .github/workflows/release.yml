@@ -56,8 +56,11 @@ jobs:
           else
             NEW_VERSION=$(npm version ${{ github.event.inputs.version }} --no-git-tag-version)
           fi
+          # Remove the 'v' prefix that npm version adds
+          NEW_VERSION=${NEW_VERSION#v}
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "VERSION_TAG=v$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "🔖 New version: $NEW_VERSION"
 
       - name: Update changelog
         run: |
@@ -91,30 +94,32 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        run: |
+          PRERELEASE=""
+          if [[ "${{ steps.version.outputs.NEW_VERSION }}" == *"beta"* ]] || [[ "${{ steps.version.outputs.NEW_VERSION }}" == *"alpha"* ]] || [[ "${{ steps.version.outputs.NEW_VERSION }}" == *"rc"* ]]; then
+            PRERELEASE="--prerelease"
+          fi
+          
+          gh release create "${{ steps.version.outputs.VERSION_TAG }}" \
+            --title "Release ${{ steps.version.outputs.NEW_VERSION }}" \
+            --notes "## What's Changed
+
+Release ${{ steps.version.outputs.NEW_VERSION }}
+
+### Features & Improvements
+- 🎨 Modern React color picker with TypeScript support
+- 🌈 8-digit HEX alpha support (#RRGGBBAA)
+- 🎯 Multiple color formats (HEX, RGB, HSV, HSL)
+- 📱 Touch-friendly mobile interface
+- ♿ Accessibility features
+
+## Installation
+
+\`\`\`bash
+npm install react-color-pikr@${{ steps.version.outputs.NEW_VERSION }}
+\`\`\`
+
+**Full Changelog**: https://github.com/${{ github.repository }}/commits/${{ steps.version.outputs.VERSION_TAG }}" \
+            $PRERELEASE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.VERSION_TAG }}
-          release_name: Release ${{ steps.version.outputs.NEW_VERSION }}
-          body: |
-            ## What's Changed
-
-            Release ${{ steps.version.outputs.NEW_VERSION }}
-
-            ### Features & Improvements
-            - 🎨 Modern React color picker with TypeScript support
-            - 🌈 8-digit HEX alpha support (#RRGGBBAA)
-            - 🎯 Multiple color formats (HEX, RGB, HSV, HSL)
-            - 📱 Touch-friendly mobile interface
-            - ♿ Accessibility features
-
-            ## Installation
-
-            ```bash
-            npm install react-color-pikr@${{ steps.version.outputs.NEW_VERSION }}
-            ```
-
-            **Full Changelog**: https://github.com/${{ github.repository }}/compare/v${{ steps.version.outputs.NEW_VERSION }}
-          draft: false
-          prerelease: ${{ contains(steps.version.outputs.NEW_VERSION, 'beta') || contains(steps.version.outputs.NEW_VERSION, 'alpha') || contains(steps.version.outputs.NEW_VERSION, 'rc') }}
