@@ -64,6 +64,10 @@
     "url": "https://github.com/ssunils/react-color-pikr.git"
   },
   "homepage": "https://ssunils.github.io/react-color-pikr",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/ssunils"
+  },
   "bugs": {
     "url": "https://github.com/ssunils/react-color-pikr/issues"
   },

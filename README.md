@@ -1,5 +1,7 @@
 # React Color Pikr 🎨
 
+![React Color Pikr](docs/screenshot/react-color-pikr.png)
+
 > A modern, accessible, and feature-rich React color picker component library with comprehensive alpha channel support
 
 [![npm version](https://badge.fury.io/js/react-color-pikr.svg)](https://badge.fury.io/js/react-color-pikr)

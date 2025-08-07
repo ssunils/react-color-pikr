@@ -1,5 +1,7 @@
 # React Color Pikr Documentation
 
+![React Color Pikr](screenshot/react-color-pikr.png)
+
 Complete documentation for the React Color Pikr library.
 
 ## 📚 Quick Navigation
