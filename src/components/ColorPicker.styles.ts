@@ -164,6 +164,7 @@ export const colorPickerStyles = {
     color: '#2c3e50',
     marginBottom: '12px',
     transition: 'border-color 0.2s ease',
+    boxSizing: 'border-box' as const
   },
 
   colorInputFocused: {
